@@ -1,0 +1,9 @@
+course: Архитектура ПО
+sections:
+  - number: 2
+    title: Микросервисы
+  - number: 1
+    title: Модульный монолит
+assignment:
+  number: 3
+  title: Объединение двух микросервисов на практике
