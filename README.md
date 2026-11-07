@@ -7,24 +7,18 @@
 
 ## Алгоритмы компьютерной графики
 
-<ul>
-  <li><strong>1. Библиотека CreateJS</strong>
-    <ol start="4">
-      <li><a href="https://github.com/dydojopka/Bubble-pop">Редактор квадратов</a></li>
-    </ol>
-  </li>
-</ul>
+<p>
+<strong>1. Библиотека CreateJS</strong><br>
+&nbsp;&nbsp;&nbsp;1.4. <a href="https://github.com/dydojopka/Bubble-pop">Редактор квадратов</a>
+</p>
 
 ## Архитектура ПО
 
-<ul>
-  <li><strong>2. Микросервисы</strong>
-    <ol start="3">
-      <li><a href="https://github.com/dydojopka/SmartCity">Разработка экосистемы микросервисов &quot;Умный город&quot;</a></li>
-      <li><a href="https://github.com/dydojopka/SmartCityMonolith">Модульный монолит - объединение двух микросервисов на практике</a></li>
-    </ol>
-  </li>
-</ul>
+<p>
+<strong>2. Микросервисы</strong><br>
+&nbsp;&nbsp;&nbsp;2.3. <a href="https://github.com/dydojopka/SmartCity">Разработка экосистемы микросервисов &quot;Умный город&quot;</a><br>
+&nbsp;&nbsp;&nbsp;2.4. <a href="https://github.com/dydojopka/SmartCityMonolith">Модульный монолит - объединение двух микросервисов на практике</a>
+</p>
 
 <!-- LAB-INDEX:END -->
 
