@@ -39,34 +39,23 @@ def _heading(text: str) -> str:
     return ''.join(f'&#{ord(c)};' if c in string.punctuation else c for c in text)
 
 
-def _render_node(node: Node, path: tuple[int, ...], indent: int) -> list[str]:
-    pad = ' ' * indent
+def _render_node(node: Node, path: tuple[int, ...]) -> list[str]:
+    indent = '&nbsp;' * (3 * len(path))
     lines = []
-    previous = None
     for number, work in sorted(node.assignments.items()):
-        if previous is None or number != previous + 1:
-            if previous is not None:
-                lines.append(f'{pad}</ol>')
-            lines.append(f'{pad}<ol start="{number}">')
+        label = '.'.join(map(str, (*path, number)))
         repo = work.repository
         validate_repository_url(repo.url, repo.name)
         suffix = ' (Private)' if repo.private else ''
         lines.append(
-            f'{pad}  <li><a href="{html.escape(repo.url, quote=True)}">'
-            f'{html.escape(work.metadata.assignment.title)}</a>{suffix}</li>'
+            f'{indent}{label}. <a href="{html.escape(repo.url, quote=True)}">'
+            f'{html.escape(work.metadata.assignment.title)}</a>{suffix}'
         )
-        previous = number
-    if previous is not None:
-        lines.append(f'{pad}</ol>')
-    if node.sections:
-        lines.append(f'{pad}<ul>')
-        for number, child in sorted(node.sections.items()):
-            child_path = (*path, number)
-            label = '.'.join(map(str, child_path))
-            lines.append(f'{pad}  <li><strong>{label}. {html.escape(child.title)}</strong>')
-            lines.extend(_render_node(child, child_path, indent + 4))
-            lines.append(f'{pad}  </li>')
-        lines.append(f'{pad}</ul>')
+    for number, child in sorted(node.sections.items()):
+        child_path = (*path, number)
+        label = '.'.join(map(str, child_path))
+        lines.append(f'{indent}<strong>{label}. {html.escape(child.title)}</strong>')
+        lines.extend(_render_node(child, child_path))
     return lines
 
 
@@ -74,6 +63,7 @@ def render_catalog(courses: list[Node]) -> str:
     if not courses:
         return EMPTY
     return '\n\n'.join(
-        f'## {_heading(course.title)}\n\n' + '\n'.join(_render_node(course, (), 0))
+        f'## {_heading(course.title)}\n\n<p>\n'
+        + '<br>\n'.join(_render_node(course, ())) + '\n</p>'
         for course in courses
     )

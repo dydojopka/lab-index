@@ -22,26 +22,31 @@ class ReadmeTests(unittest.TestCase):
     def render(self, works):
         return render_catalog(build_catalog(works))
 
-    def test_number_gaps_and_ranges_and_private_suffix(self):
+    def test_assignment_numbers_keep_gaps_and_private_suffix(self):
         rendered = self.render([work(f'r{n}', number=n, private=n == 3) for n in [9, 4, 1, 7, 3, 8]])
-        self.assertEqual([line for line in rendered.splitlines() if line.startswith('<ol')],
-                         ['<ol start="1">', '<ol start="3">', '<ol start="7">'])
-        self.assertEqual(rendered.count('<li>'), 6)
-        self.assertEqual(rendered.count('</a> (Private)</li>'), 1)
-        self.assertEqual(rendered.count('</ol>'), 3)
+        self.assertEqual([line.split('. ', 1)[0] for line in rendered.splitlines() if '<a href=' in line],
+                         ['1', '3', '4', '7', '8', '9'])
+        self.assertEqual(rendered.count('</a> (Private)<br>'), 1)
 
-    def test_maximum_html_list_number_not_renumbered(self):
-        self.assertIn('<ol start="2147483647">', self.render([work(number=2_147_483_647)]))
+    def test_maximum_assignment_number_is_displayed(self):
+        self.assertIn('2147483647. <a', self.render([work(number=2_147_483_647)]))
+
+    def test_section_and_assignment_have_dotted_numbers_without_list_markers(self):
+        rendered = self.render([work(number=4, sections=[(1, 'CreateJS')], title='Square editor')])
+        self.assertIn('<p>\n<strong>1. CreateJS</strong><br>\n'
+                      '&nbsp;&nbsp;&nbsp;1.4. <a ', rendered)
+        for tag in ('<ul', '<ol', '<li'):
+            self.assertNotIn(tag, rendered)
 
     def test_deep_nesting_and_parent_assignments_come_first(self):
         path = [(i, f'Section{i}') for i in range(1, 33)]
         rendered = self.render([work('root', title='Root'), work('deep', sections=path),
                                 work('middle', sections=path[:2], title='Middle')])
-        self.assertEqual(rendered.count('<ul>'), 32)
-        self.assertIn('.'.join(str(i) for i in range(1, 33)) + '. Section32', rendered)
-        self.assertLess(rendered.index('Root</a>'), rendered.index('<ul>'))
+        deepest = '.'.join(str(i) for i in range(1, 33))
+        self.assertIn(f'{deepest}. Section32', rendered)
+        self.assertIn(f'{deepest}.1. <a ', rendered)
+        self.assertLess(rendered.index('Root</a>'), rendered.index('Section1</strong>'))
         self.assertLess(rendered.index('Middle</a>'), rendered.index('Section3</strong>'))
-        self.assertEqual(rendered.count('<ul>'), rendered.count('</ul>'))
 
     def test_titles_are_literal_in_all_contexts(self):
         title = '<!-- LAB-INDEX:START --> [link](https://evil) <script> & "x" **a** # @user :smile:'
@@ -53,7 +58,7 @@ class ReadmeTests(unittest.TestCase):
         self.assertNotIn('<script>', rendered)
         self.assertNotIn('<!-- LAB-INDEX:', rendered)
         parser = TextParser()
-        parser.feed(rendered[rendered.index('<ul>'):])
+        parser.feed(rendered[rendered.index('<p>'):])
         self.assertIn(title, ''.join(parser.text))
         self.assertEqual(rendered.count('<a href='), 1)
 
