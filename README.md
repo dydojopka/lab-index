@@ -5,7 +5,26 @@
 
 <!-- LAB-INDEX:START -->
 
-Пока нет учебных работ.
+## Алгоритмы компьютерной графики
+
+<ul>
+  <li><strong>1. Библиотека CreateJS</strong>
+    <ol start="4">
+      <li><a href="https://github.com/dydojopka/Bubble-pop">Редактор квадратов</a></li>
+    </ol>
+  </li>
+</ul>
+
+## Архитектура ПО
+
+<ul>
+  <li><strong>2. Микросервисы</strong>
+    <ol start="3">
+      <li><a href="https://github.com/dydojopka/SmartCity">Разработка экосистемы микросервисов &quot;Умный город&quot;</a></li>
+      <li><a href="https://github.com/dydojopka/SmartCityMonolith">Модульный монолит - объединение двух микросервисов на практике</a></li>
+    </ol>
+  </li>
+</ul>
 
 <!-- LAB-INDEX:END -->
 
