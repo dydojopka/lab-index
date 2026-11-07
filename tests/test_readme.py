@@ -34,7 +34,7 @@ class ReadmeTests(unittest.TestCase):
     def test_section_and_assignment_have_dotted_numbers_without_list_markers(self):
         rendered = self.render([work(number=4, sections=[(1, 'CreateJS')], title='Square editor')])
         self.assertIn('<p>\n<strong>1. CreateJS</strong><br>\n'
-                      '&nbsp;&nbsp;&nbsp;1.4. <a ', rendered)
+                      '&nbsp;&nbsp;&nbsp;&nbsp;1.4. <a ', rendered)
         for tag in ('<ul', '<ol', '<li'):
             self.assertNotIn(tag, rendered)
 
