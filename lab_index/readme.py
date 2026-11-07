@@ -40,7 +40,7 @@ def _heading(text: str) -> str:
 
 
 def _render_node(node: Node, path: tuple[int, ...]) -> list[str]:
-    indent = '&nbsp;' * (3 * len(path))
+    indent = '&nbsp;' * (4 * len(path))
     lines = []
     for number, work in sorted(node.assignments.items()):
         label = '.'.join(map(str, (*path, number)))
