@@ -36,6 +36,13 @@
 &nbsp;&nbsp;&nbsp;&nbsp;2.2. <a href="https://github.com/dydojopka/Local-Stock-Tracker-report">Отчёт</a>
 </p>
 
+## Программирование для мобильных платформ
+
+<p>
+<strong>2. Основы разработки для ОС Android</strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.6. <a href="https://github.com/dydojopka/Color-Tiles">Головоломка Color Tiles</a>
+</p>
+
 ## Системы ИИ
 
 <p>
