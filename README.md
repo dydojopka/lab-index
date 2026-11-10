@@ -12,6 +12,7 @@
 ## Архитектура ПО
 
 <p>
+1. <a href="https://github.com/dydojopka/dev-ai-assist">Доклад</a><br>
 <strong>2. Микросервисы</strong><br>
 &nbsp;&nbsp;&nbsp;&nbsp;2.2. <a href="https://github.com/dydojopka/AshroevE-SoftArch-lab2">Анализ архитектуры</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;2.3. <a href="https://github.com/dydojopka/SmartCity">Разработка экосистемы микросервисов &quot;Умный город&quot;</a><br>
